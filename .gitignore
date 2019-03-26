@@ -1,0 +1,13 @@
+node_modules
+###############
+#    folder   #
+###############
+dist
+node_modules
+.DS_Store
+###############
+#  temp file  #
+###############
+*.log
+*.tmp
+
