@@ -5,8 +5,12 @@ import {
   Input,
   List
 } from 'antd';
-
 import store from './store';
+import {
+  getInputChangeAction,
+  getAddItemAction,
+  getDeleteItemAction
+} from './store/actionCreators';
 
 class TodoList extends Component {
   constructor(props, context) {
@@ -39,25 +43,28 @@ class TodoList extends Component {
           style={{ marginTop: 10, width: 300 }}
           bordered
           dataSource={this.state.list}
-          renderItem={item => (<List.Item>{item}</List.Item>)}
+          renderItem={(item, index) => (
+            <List.Item
+              onClick={this.handleItemClick.bind(this, index)}
+            >
+              {item}
+            </List.Item>
+          )}
         />
       </div>
     );
   }
 
   handleBtnClick(e) {
-    const action = {
-      type: 'ADD_TODO_ITEM'
-    };
-    store.dispatch(action);
+    store.dispatch(getAddItemAction());
   }
 
   handleInputChange(e) {
-    const action = {
-      type: 'CHANGE_INPUT_VALUE',
-      value: e.target.value
-    };
-    store.dispatch(action);
+    store.dispatch(getInputChangeAction(e.target.value));
+  }
+
+  handleItemClick(index) {
+    store.dispatch(getDeleteItemAction(index));
   }
 
   handleStoreChange() {
