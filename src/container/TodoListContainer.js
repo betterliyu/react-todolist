@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import store from '../store';
 import {
-  getInputChangeAction,
   getAddItemAction,
   getDeleteItemAction,
-  getTodoList
+  getFetchListAction,
+  getInputChangeAction
 } from '../store/actionCreators';
+import React, { Component } from 'react';
+import store from '../store';
 import TodoList from '../component/TodoList';
 
 class TodoListContainer extends Component {
@@ -20,7 +20,7 @@ class TodoListContainer extends Component {
   }
 
   componentDidMount() {
-    store.dispatch(getTodoList());
+    store.dispatch(getFetchListAction());
   }
 
   render() {
