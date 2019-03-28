@@ -1,5 +1,10 @@
 import ActionTypes from './actionTypes';
 
+export const getInitListAction = data => ({
+  type: ActionTypes.INIT_LIST,
+  data
+});
+
 export const getInputChangeAction = value => ({
   type: ActionTypes.CHANGE_INPUT_VALUE,
   value
@@ -13,3 +18,12 @@ export const getDeleteItemAction = index => ({
   type: ActionTypes.DELETE_TODO_ITEM,
   index
 });
+
+export const getTodoList = () => {
+  return (dispatch) => {
+    setTimeout(() => {
+      const data = ['todo1', 'todo2'];
+      dispatch(getInitListAction(data))
+    }, 500);
+  }
+}
