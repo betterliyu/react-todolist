@@ -1,56 +1,29 @@
+import React from 'react';
+import { connect } from 'react-redux';
 import {
   getAddItemAction,
   getDeleteItemAction,
-  getFetchListAction,
-  getInputChangeAction
+  getInputChangeAction,
+  getInitListAction
 } from '../store/actionCreators';
-import React, { Component } from 'react';
-import store from '../store';
 import TodoList from '../component/TodoList';
 
-class TodoListContainer extends Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = store.getState();
-    this.handleBtnClick = this.handleBtnClick.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleItemClick = this.handleItemClick.bind(this);
-    this.handleStoreChange = this.handleStoreChange.bind(this);
-    store.subscribe(this.handleStoreChange)
-  }
 
-  componentDidMount() {
-    store.dispatch(getFetchListAction());
-  }
+const TodoListContainer = props => <TodoList {...props} />;
 
-  render() {
-    return (
-      <TodoList
-        inputValue={this.state.inputValue}
-        list={this.state.list}
-        handleInputChange={this.handleInputChange}
-        handleBtnClick={this.handleBtnClick}
-        handleItemClick={this.handleItemClick}
-      />
-    );
-  }
+const mapStateToProps = (state, ownProps) => ({
+  inputValue: state.inputValue,
+  list: state.list
+});
 
+const mapDispatchToProps = dispatch => ({
+  initList: () => dispatch(getInitListAction(['todo1', 'todo2'])),
+  changeInputValue: e => dispatch(getInputChangeAction(e.target.value)),
+  addTodoItem: () => dispatch(getAddItemAction()),
+  deleteTodoItem: index => dispatch(getDeleteItemAction(index)),
+});
 
-  handleBtnClick(e) {
-    store.dispatch(getAddItemAction());
-  }
-
-  handleInputChange(e) {
-    store.dispatch(getInputChangeAction(e.target.value));
-  }
-
-  handleItemClick(index) {
-    store.dispatch(getDeleteItemAction(index));
-  }
-
-  handleStoreChange() {
-    this.setState(store.getState());
-  }
-}
-
-export default TodoListContainer;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoListContainer);
