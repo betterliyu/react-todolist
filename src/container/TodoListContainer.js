@@ -1,7 +1,7 @@
 import {
   getAddItemAction,
   getDeleteItemAction,
-  getFetchListAction,
+  fetchList,
   getInputChangeAction
 } from '../store/actionCreators';
 import React, { Component } from 'react';
@@ -20,7 +20,7 @@ class TodoListContainer extends Component {
   }
 
   componentDidMount() {
-    store.dispatch(getFetchListAction());
+    store.dispatch(fetchList());
   }
 
   render() {

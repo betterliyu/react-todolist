@@ -19,14 +19,11 @@ export const getDeleteItemAction = index => ({
   index
 });
 
-export const getFetchListAction = () => ({
-  type: ActionTypes.FETCH_LIST,
-});
-// export const getTodoList = () => {
-//   return (dispatch) => {
-//     setTimeout(() => {
-//       const data = ['todo1', 'todo2'];
-//       dispatch(getInitListAction(data))
-//     }, 500);
-//   }
-// }
+export const fetchList = () => {
+  return (dispatch) => {
+    setTimeout(() => {
+      const data = ['todo1', 'todo2'];
+      dispatch(getInitListAction(data))
+    }, 500);
+  }
+}
