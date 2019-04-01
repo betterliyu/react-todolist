@@ -3,11 +3,7 @@ import { getInitListAction } from './actionCreators';
 import { put, takeEvery } from 'redux-saga/effects';
 
 function* fetchTodoList() {
-  const data = yield (() => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => resolve(['todo1', 'todo2']), 2000);
-    });
-  })();
+  const data = yield ['todo1', 'todo2'];
   yield put(getInitListAction(data));
 }
 
